@@ -128,7 +128,7 @@ class GatingNetwork(nn.Module):
         return weights
 
 
-class GatingNetwork_ROD(nn.Module):
+class GatingNetwork_Head(nn.Module):
     def __init__(self, input_dim=256, num_experts=2):
         super().__init__()
         self.fc = nn.Linear(input_dim, num_experts)
@@ -177,9 +177,9 @@ class SDR_CNN_FedMoE(nn.Module):
         self.FC_2_shared = FullyConnected(128, 64, "relu", None)
         self.FC_3_shared = FullyConnected(64, 1, "global", None)
 
-        self.Gating = GatingNetwork_ROD()
+        self.Gating = GatingNetwork_Head()
 
-    def forward(self, x, personal_k_min=1):
+    def forward(self, x):
         B, F, W = x.shape
         x_personalized = self.Conv_1(x)
         x_personalized = self.Pool_1(x_personalized)
