@@ -27,7 +27,6 @@ def parse_args():
     parser.add_argument("--data_path", default="", type=str, help="Path to the dataset")
     parser.add_argument("--logger_path", default="./results/logs", type=str, help="Path to logs")
     parser.add_argument("--save_path", type=str, default="./results/checkpoints", help="Save directory")
-    parser.add_argument("--load_model", type=str, default=None, help="Path to a pre-trained model")
     parser.add_argument("--ds_csv", default="", type=str, help="Path to dataset csv")
     parser.add_argument("--train_csv", default="", type=str, help="Path to train csv")
     parser.add_argument("--test_csv", default="", type=str, help="Path to test csv")
@@ -39,7 +38,6 @@ def parse_args():
     parser.add_argument("--model_name", default="SDR-FedMoE", type=str, help="Model name")
     parser.add_argument("--input_dim", type=int, default=80, help="Input feature dimension")
     parser.add_argument("--num_clients", type=int, default=3, help="Number of federated clients")
-    parser.add_argument("--fed_strategy", type=str, default="FedMoE", help="Federated strategy")
 
     # training
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
@@ -192,10 +190,6 @@ def main():
 
     logger.info(f"Speech Depression Recognition Model: {args.model_name}")
     logger.info(f"The Number of Clients for Federated Learning: {args.num_clients}")
-    logger.info(f"The Strategy for Federated Learning: {args.fed_strategy}")
-
-    if args.fed_strategy != "FedMoE":
-        raise ValueError("This script only supports FedMoE. Please set --fed_strategy FedMoE.")
 
     clients = []
     global_model = SDR_CNN_FedMoE().to(args.device)
