@@ -9,7 +9,7 @@ class FedMoEClient(torch.nn.Module):
         self.data_loader = data_loader
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr, weight_decay=weight_decay)
         self.scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
-            self.optimizer, T_max=70, eta_min=min_lr
+            self.optimizer, T_max=100, eta_min=min_lr
         )
         self.loss_func = torch.nn.BCELoss()
         self.device = device

@@ -225,7 +225,7 @@ def main():
         for client in clients:
             global_weights, global_controls = server.get_global_feature_extractor_weights()
             client.set_feature_extractor_weights(global_weights)
-            train_loss.append(client.train(rounds=1, global_controls=global_controls))
+            train_loss.append(client.train(rounds=2, global_controls=global_controls))
 
             client_weights, client_controls = client.get_feature_extractor_weights()
             client_fe_weights_list.append(client_weights)
